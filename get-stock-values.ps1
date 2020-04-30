@@ -1,4 +1,4 @@
-
+#! /usr/bin/pwsh
 $tick_list=@("WOW.AX","DDR.AX","QAN.AX")
 $API_key=get-content -raw ./key.txt
 foreach($tickerID in $tick_list){
