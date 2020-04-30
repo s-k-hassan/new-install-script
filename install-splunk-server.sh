@@ -21,11 +21,11 @@ sudo dpkg -i splunk-installer.deb
 
 # Start Splunk for First Run and Enable Autostart
 touch /opt/splunk/etc/system/local/user-seed.conf
-echo "Password for Splunk node"
-read splunkpass
+#echo "Password for Splunk node"
+#read splunkpass
 echo "[user_info]
 USERNAME = admin
-PASSWORD = $splunkpass
+PASSWORD = password
 " >> user-seed.conf
 cd /opt/splunk/bin
 ./splunk start --accept-license --answer-yes
@@ -38,11 +38,12 @@ wget -O get-stock-values.ps1 'https://raw.githubusercontent.com/s-k-hassan/new-i
 sudo chmod +x get-stock-values.ps1
 mkdir /home/splunk/alphavantagedl/
 mkdir /home/splunk/alphavantagemon/
-echo "API Key"
+echo "API Key for Alphavantage"
 read apikey
 echo $apikey >> /home/splunk/key.txt
 
 # Create add script sources to input.conf
+mkdir /opt/splunk/etc/apps/search/local/
 touch /opt/splunk/etc/apps/search/local/inputs.conf
 echo "[script:///opt/splunk/etc/apps/search/bin/get-stock-values.ps1]
 disabled = false
@@ -51,4 +52,4 @@ sourcetype = csv
 source = script://./bin/get-stock-values.ps1" >> /opt/splunk/etc/apps/search/local/inputs.conf
 
 # Start Splunk
-sudo ./splunk start
+sudo /opt/splunk/bin/splunk start
