@@ -9,7 +9,7 @@ sudo apt-get install -y powershell
 rm packages-microsoft-prod.deb
 
 # Install Open-SSH Server
-sudo apt-get install openssh-server
+sudo apt-get install openssh-server -y
 sudo service ssh start
 
 # Download Splunk and Install
@@ -30,7 +30,7 @@ PASSWORD = $splunkpass
 cd /opt/splunk/bin
 ./splunk start --accept-license --answer-yes
 sudo ./splunk stop
-sudo ./splunk enable boot-start systemd-managed 1
+sudo ./splunk enable boot-start -systemd-managed 1
 
 # Download Finance API monitoring scripts
 cd /opt/splunk/etc/apps/search/bin/
@@ -43,6 +43,7 @@ read apikey
 echo $apikey >> /home/splunk/key.txt
 
 # Create add script sources to input.conf
+touch /opt/splunk/etc/apps/search/local/inputs.conf
 echo "[script:///opt/splunk/etc/apps/search/bin/get-stock-values.ps1]
 disabled = false
 interval = 6000
