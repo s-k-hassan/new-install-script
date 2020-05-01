@@ -20,16 +20,16 @@ cd /opt/splunk
 sudo dpkg -i splunk-installer.deb
 
 # Start Splunk for First Run and Enable Autostart
-touch /opt/splunk/etc/system/local/user-seed.conf
+cd /opt/splunk/bin
+./splunk start --accept-license --answer-yes
+sudo ./splunk stop
+#touch /opt/splunk/etc/system/local/user-seed.conf
 #echo "Password for Splunk node"
 #read splunkpass
 echo "[user_info]
 USERNAME = admin
 PASSWORD = password
 " >> user-seed.conf
-cd /opt/splunk/bin
-./splunk start --accept-license --answer-yes
-sudo ./splunk stop
 sudo ./splunk enable boot-start -systemd-managed 1
 
 # Download Finance API monitoring scripts
