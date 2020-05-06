@@ -29,7 +29,7 @@ sudo ./splunk stop
 echo "[user_info]
 USERNAME = admin
 PASSWORD = password
-" >> user-seed.conf
+" >> /opt/splunk/etc/system/local/user-seed.conf
 sudo ./splunk enable boot-start -systemd-managed 1
 
 # Download Finance API monitoring scripts
