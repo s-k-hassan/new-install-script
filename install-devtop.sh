@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install Packages
-sudo apt-get install git curl apt-transport-https open-vm-tools -y
+sudo apt-get install git curl apt-transport-https open-vm-tools golang -y
 
 # Install VS Code
 curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
@@ -18,6 +18,10 @@ sudo apt-get update
 sudo add-apt-repository universe
 sudo apt-get install -y powershell
 rm packages-microsoft-prod.deb
+
+# Install PowerCLI for VMware
+pwsh -command set-psrepository -Name PSGalley -InstallationPolicy Trusted
+pwsh -command install-module vmware.powercli
 
 # Remove Firefox
 sudo apt-get remove firefox -y
